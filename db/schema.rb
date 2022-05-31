@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2022_05_31_221422) do
     t.string "name"
     t.string "ingredient"
     t.string "instruction"
+    t.string "image_url"
   end
 
 end
