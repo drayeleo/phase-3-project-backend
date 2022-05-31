@@ -17,10 +17,10 @@ ActiveRecord::Schema.define(version: 2022_05_31_221422) do
   end
 
   create_table "recipes", force: :cascade do |t|
-    t.string "category_id"
+    t.integer "category_id"
     t.string "name"
-    t.string "ingredient"
-    t.string "instruction"
+    t.string "ingredients"
+    t.string "instructions"
     t.string "image_url"
   end
 
