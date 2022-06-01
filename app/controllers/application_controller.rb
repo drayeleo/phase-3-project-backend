@@ -12,6 +12,10 @@ class ApplicationController < Sinatra::Base
     Recipe.all.to_json
   end
 
+  get "/recipes/:id" do
+    Recipe.find(params[:id]).to_json
+  end
+
   post "/recipes" do
     new_recipe = Recipe.create(
       category_id: params[:category_id],
