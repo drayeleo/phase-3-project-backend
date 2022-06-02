@@ -15,10 +15,11 @@ class ApplicationController < Sinatra::Base
     Recipe.find(params[:id]).to_json
   end
 
-  # get "/search/:searchString" do
-  #   Recipe.where("name LIKE ?", "%#{:searchString}%").to_json
-  # end
-  # # used this resource: https://stackoverflow.com/questions/5044372/can-you-use-activerecord-to-find-substring-of-a-field-quick-dirty-keyword-fi
+  get "/recipes/search/:searchString" do
+    # binding.pry
+    Recipe.where("name LIKE ?", "%#{params[:searchString]}%").to_json
+  end
+  # used this resource: https://stackoverflow.com/questions/5044372/can-you-use-activerecord-to-find-substring-of-a-field-quick-dirty-keyword-fi
 
   post "/recipes" do
     new_recipe =
