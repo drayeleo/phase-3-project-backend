@@ -12,7 +12,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/recipes/:id" do
-    Recipe.find(params[:id]).to_json
+    Recipe.find(params[:id]).to_json(include: :categories)
   end
 
   get "/recipes/search/:searchString" do
