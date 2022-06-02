@@ -6,6 +6,10 @@ class ApplicationController < Sinatra::Base
     Category.all.to_json
   end
 
+  get "/categories/:id" do
+    Category.find(params[:id]).to_json(include: :recipes)
+  end
+
   # Recipes CRUD
   get "/recipes" do
     Recipe.all.to_json
