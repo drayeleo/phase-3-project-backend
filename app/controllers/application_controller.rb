@@ -24,7 +24,7 @@ class ApplicationController < Sinatra::Base
   post "/recipes" do
     new_recipe =
       Recipe.create(
-        category_id: params[:category_id],
+        # category_id: params[:category_id],
         name: params[:name],
         ingredients: params[:ingredients],
         instructions: params[:instructions],
@@ -36,7 +36,7 @@ class ApplicationController < Sinatra::Base
   patch "/recipes/:id" do
     recipe = Recipe.find(params[:id])
     recipe.update(
-      category_id: params[:category_id],
+      # category_id: params[:category_id],
       name: params[:name],
       ingredients: params[:ingredients],
       instructions: params[:instructions],
