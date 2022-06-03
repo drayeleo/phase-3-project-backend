@@ -12,7 +12,7 @@ class ApplicationController < Sinatra::Base
 
   # Recipes CRUDs
   get "/recipes" do
-    Recipe.all.to_json
+    Recipe.all.to_json(methods: [:tags])
   end
 
   get "/recipes/:id" do
@@ -32,10 +32,11 @@ class ApplicationController < Sinatra::Base
         name: params[:name],
         ingredients: params[:ingredients],
         instructions: params[:instructions],
-        image_url: params[:image_url],
-        categories: params[:categories]
+        image_url: params[:image_url]
       )
-    new_recipe.to_json.to_json(methods: [:tags])
+      new_tags = params[:tags]
+      new_recipe.tag_edit(new_tags)
+    new_recipe.to_json(methods: [:tags])
   end
 
   patch "/recipes/:id" do
