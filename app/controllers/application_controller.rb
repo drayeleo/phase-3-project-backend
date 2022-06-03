@@ -10,13 +10,13 @@ class ApplicationController < Sinatra::Base
     Category.find(params[:id]).to_json(include: :recipes)
   end
 
-  # Recipes CRUD
+  # Recipes CRUDs
   get "/recipes" do
     Recipe.all.to_json
   end
 
   get "/recipes/:id" do
-    Recipe.find(params[:id]).to_json(include: :categories)
+    Recipe.find(params[:id]).to_json(methods: [:tags])
   end
 
   get "/recipes/search/:searchString" do
@@ -32,9 +32,10 @@ class ApplicationController < Sinatra::Base
         name: params[:name],
         ingredients: params[:ingredients],
         instructions: params[:instructions],
-        image_url: params[:image_url]
+        image_url: params[:image_url],
+        categories: params[:categories]
       )
-    new_recipe.to_json
+    new_recipe.to_json.to_json(methods: [:tags])
   end
 
   patch "/recipes/:id" do
@@ -45,8 +46,20 @@ class ApplicationController < Sinatra::Base
       ingredients: params[:ingredients],
       instructions: params[:instructions],
       image_url: params[:image_url]
+    
     )
-    recipe.to_json
+    new_tags = params[:tags]
+      recipe.tag_edit(new_tags)
+    recipe.to_json(methods: [:tags])
+ 
+ 
+    #rc = RecipeCategory.where(recipe_id: params[:id]);
+    # Loop through the results
+    # Compare the record to what you were given
+    # Record is found in what you were given do nothing, remove the record from what you were given
+    # If record was not found in what you were given, delete the record
+    # Loop through what is left of what you were given and create new record
+
   end
 
   delete "/recipes/:id" do
@@ -54,4 +67,11 @@ class ApplicationController < Sinatra::Base
     recipe.destroy
     recipe.to_json
   end
+
+  get "/recipe-category" do
+    RecipeCategory.all.to_json
+  end
+
+
+  
 end
