@@ -10,6 +10,11 @@ class ApplicationController < Sinatra::Base
     Category.find(params[:id]).to_json(include: :recipes)
   end
 
+  post "/categories" do
+    new_category = Category.create(name: params[:name])
+    new_category.to_json
+  end
+
   # Recipes CRUDs
   get "/recipes" do
     Recipe.all.to_json(methods: [:tags])
